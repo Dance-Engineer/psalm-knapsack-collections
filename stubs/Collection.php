@@ -16,6 +16,9 @@ use Traversable;
  */
 class Collection implements IteratorAggregate, \Serializable
 {
+    /**
+     * @use CollectionTrait<TKey, TValue>
+     */
     use CollectionTrait;
 
     /**

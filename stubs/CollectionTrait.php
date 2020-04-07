@@ -624,11 +624,4 @@ trait CollectionTrait
     {
     }
 
-    /**
-     * TODO
-     * @return array|\Traversable
-     */
-    protected function getItems()
-    {
-    }
 }
