@@ -11,8 +11,7 @@
     }
   ],
   "require": {
-    "vimeo/psalm": "dev-master",
-    "ext-simplexml": "*",
+    "vimeo/psalm": "^3.6.2 || dev-master",
     "dusank/knapsack": "10.*"
   },
   "extra": {
