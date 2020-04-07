@@ -1,0 +1,30 @@
+{
+  "name": "dance-engineer/psalm-knapsack-collections",
+  "description": "Stub to let Psalm understand Knapsack Collections better",
+  "keywords": ["php", "code", "inspection", "psalm", "plugin", "psalm-plugin", "static analysis", "static-analysis", "extension"],
+  "type": "psalm-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Patrick Kusebauch",
+      "email": "patrick.kusebauch@gmail.com"
+    }
+  ],
+  "require": {
+    "vimeo/psalm": "dev-master",
+    "ext-simplexml": "*",
+    "dusank/knapsack": "10.*"
+  },
+  "extra": {
+    "psalm": {
+      "pluginClass": "DanceEngineer\\PsalmKnapsackCollections\\Plugin"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "DanceEngineer\\PsalmKnapsackCollections\\": [
+        "."
+      ]
+    }
+  }
+}
