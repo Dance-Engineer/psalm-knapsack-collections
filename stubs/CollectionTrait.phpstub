@@ -33,6 +33,7 @@ trait CollectionTrait
     }
 
     /**
+     * @template T
      * @param iterable<T> ...$collections
      * @return Collection<TKey|int, T|TValue>
      */
@@ -41,6 +42,7 @@ trait CollectionTrait
     }
 
     /**
+     * @template T
      * @param callable(TValue, TKey=):T $function
      * @return Collection<TKey, T>
      */
@@ -49,10 +51,12 @@ trait CollectionTrait
     }
 
     /**
+     * @template T
+     * @template Ta as true|false
      * @param callable(T, TValue, TKey):T $function
      * @param T $starTValue
-     * @param bool $convertToCollection
-     * @return T|Collection<mixed, mixed>
+     * @param Ta $convertToCollection
+     * @return <Ta is true ? Collection : T>
      */
     public function reduce(callable $function, $starTValue, $convertToCollection = false)
     {
@@ -84,6 +88,7 @@ trait CollectionTrait
     }
 
     /**
+     * @template T as array-key
      * @param callable(TValue, TKey=):T $function ($value, $key)
      * @return Collection<T, Collection<TKey, TValue>>
      */
@@ -93,7 +98,7 @@ trait CollectionTrait
 
     /**
      * @param mixed $key
-     * @return Collection<mixed, Collection<TKey, TValue>>
+     * @return Collection<array-key, Collection<TKey, TValue>>
      */
     public function groupByKey($key)
     {
@@ -115,9 +120,10 @@ trait CollectionTrait
     }
 
     /**
+     * @template T as true|false
      * @param TKey $key
-     * @param bool $convertToCollection
-     * @return TValue|Collection
+     * @param T $convertToCollection
+     * @return <T is true ? Collection : TValue>
      * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function get($key, $convertToCollection = false)
@@ -125,10 +131,12 @@ trait CollectionTrait
     }
 
     /**
+     * @template T
+     * @template Ta as true|false
      * @param TKey $key
      * @param T $default
-     * @param bool $convertToCollection
-     * @return T|TValue|Collection<mixed, mixed>
+     * @param Ta $convertToCollection
+     * @return <Ta is true ? T|Collection : T|TValue>
      * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function getOrDefault($key, $default = null, $convertToCollection = false)
@@ -136,10 +144,13 @@ trait CollectionTrait
     }
 
     /**
+     * @template T
+     * @template Ta as true|false
      * @param callable(TValue, TKey=):bool $function
-     * @param mixed|null $default
-     * @param bool $convertToCollection
-     * @return mixed|Collection<mixed, mixed>
+     * @param T|null $default
+     * @param Ta $convertToCollection
+     * @return <Ta is true ? T|null|Collection : T|null|TValue>
+     * @return mixed|Collection<array-key, mixed>
      */
     public function find(callable $function, $default = null, $convertToCollection = false)
     {
@@ -149,6 +160,7 @@ trait CollectionTrait
      * Returns a non-lazy collection of items whose keys are the return values of $function and values are the number of
      * items in this collection for which the $function returned this value.
      *
+     * @template T as array-key
      * @param callable(TValue, TKey=):T $function
      * @return Collection<T, int>
      */
@@ -157,6 +169,7 @@ trait CollectionTrait
     }
 
     /**
+     * @template T as array-key
      * @param callable(TValue, TKey=):T $function
      * @return Collection<T, TValue>
      */
@@ -196,10 +209,12 @@ trait CollectionTrait
     }
 
     /**
+     * @template T
+     * @template Ta as true|false
      * @param callable(T, TValue):T $function
      * @param T $starTValue
-     * @param bool $convertToCollection
-     * @return T|Collection<mixed, mixed>
+     * @param Ta $convertToCollection
+     * @return <Ta is true ? Collection<array-key, mixed> : T>
      */
     public function reduceRight(callable $function, $starTValue, $convertToCollection = false)
     {
@@ -245,7 +260,7 @@ trait CollectionTrait
 
     /**
      * @param mixed $separator
-     * @return Collection<mixed, mixed>
+     * @return Collection<array-key, mixed>
      */
     public function interpose($separator)
     {
@@ -261,7 +276,7 @@ trait CollectionTrait
 
     /**
      * @param iterable<mixed> ...$collections
-     * @return Collection<mixed, mixed>
+     * @return Collection<array-key, mixed>
      */
     public function interleave(...$collections)
     {
@@ -275,18 +290,20 @@ trait CollectionTrait
     }
 
     /**
+     * @template T as mixed|null
      * @param mixed $value
-     * @param mixed|null $key
-     * @return Collection<mixed, mixed>
+     * @param T $key
+     * @return Collection<array-key, T|TValue>
      */
     public function prepend($value, $key = null)
     {
     }
 
     /**
+     * @template T as mixed|null
      * @param mixed $value
-     * @param mixed $key
-     * @return Collection<mixed, mixed>
+     * @param T $key
+     * @return Collection<array-key, T|TValue>
      */
     public function append($value, $key = null)
     {
@@ -304,8 +321,9 @@ trait CollectionTrait
     }
 
     /**
+     * @template T
      * @param callable(TValue, TKey=):T $function
-     * @return Collection<mixed, mixed>
+     * @return Collection<array-key, mixed>
      */
     public function mapcat(callable $function)
     {
@@ -344,6 +362,7 @@ trait CollectionTrait
     }
 
     /**
+     * @template T
      * @param callable(T, TValue):T $function
      * @param T $starTValue
      * @param callable $function
@@ -370,10 +389,11 @@ trait CollectionTrait
     }
 
     /**
+     * @template T
      * @param int $numberOfItems
      * @param int $step
-     * @param iterable $padding
-     * @return Collection<mixed, mixed>
+     * @param iterable<T> $padding
+     * @return Collection<int, Collection<Tkey, TValue|T>>
      */
     public function partition($numberOfItems, $step = 0, $padding = [])
     {
@@ -409,8 +429,9 @@ trait CollectionTrait
     }
 
     /**
-     * @param bool $convertToCollection
-     * @return mixed|Collection<mixed, mixed>
+     * @template Ta as true|false
+     * @param Ta $convertToCollection
+     * @return <Ta is true ? Collection : TValue>
      * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function first($convertToCollection = false)
@@ -418,8 +439,9 @@ trait CollectionTrait
     }
 
     /**
-     * @param bool $convertToCollection
-     * @return TValue|Collection <mixed, mixed>
+     * @template Ta as true|false
+     * @param Ta $convertToCollection
+     * @return <Ta is true ? Collection : TValue>
      * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function last($convertToCollection = false)
@@ -434,8 +456,9 @@ trait CollectionTrait
     }
 
     /**
-     * @param bool $convertToCollection
-     * @return TValue|Collection<mixed, mixed>
+     * @template Ta as true|false
+     * @param Ta $convertToCollection
+     * @return <Ta is true ? Collection : TValue>
      * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function second($convertToCollection = false)
@@ -443,6 +466,7 @@ trait CollectionTrait
     }
 
     /**
+     * @template T as array-key
      * @param iterable<T> $collection
      * @return Collection<T, TValue>
      * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
@@ -499,6 +523,8 @@ trait CollectionTrait
     }
 
     /**
+     * @template Ta as array-key
+     * @template Tb
      * @param callable(Collection<TKey, TValue>):Collection<Ta, Tb> $transformer
      * @return Collection<Ta, Tb>
      * @throws InvalidReturnValue
@@ -508,7 +534,7 @@ trait CollectionTrait
     }
 
     /**
-     * @return Collection<mixed, Collection<TKey, mixed>>
+     * @return Collection<array-key, Collection<TKey, mixed>>
      */
     public function transpose()
     {
@@ -516,7 +542,7 @@ trait CollectionTrait
 
     /**
      * @param mixed $keyPath
-     * @return Collection<mixed, mixed>
+     * @return Collection<array-key, mixed>
      */
     public function extract($keyPath)
     {

@@ -22,34 +22,37 @@ class Collection implements IteratorAggregate, \Serializable
     use CollectionTrait;
 
     /**
-     * @var Traversable<Tkey, TValue>
+     * @var Traversable<TKey, TValue>
      */
     protected $input;
 
     /**
-     * @var callable():(array<Tkey, TValue>|Traversable<Tkey, TValue>)
+     * @var callable():(array<TKey, TValue>|Traversable<TKey, TValue>)
      */
     private $inputFactory;
 
     /**
-     * @param callable():(array<Tkey, TValue>|Traversable<Tkey, TValue>)|array<Tkey, TValue>|Traversable<Tkey, TValue> $input
+     * @param iterable<TKey, TValue>|callable():(array<TKey, TValue>|Traversable<TKey, TValue>) $input
      */
     public function __construct($input)
     {
     }
 
     /**
-     * @param callable():(array<Tkey, TValue>|Traversable<Tkey, TValue>)|array<Tkey, TValue>|Traversable<Tkey, TValue> $input
-     * @return Collection<Tkey, TValue>
+     * @template Ta as array-key
+     * @template Tb
+     * @param iterable<Ta, Tb>|callable():(iterable<Ta, Tb>) $input
+     * @return Collection<Ta, Tb>
      */
     public static function from($input)
     {
     }
 
     /**
+     * @template T
      * @param T $input
      * @param callable(T):TValue $function
-     * @return Collection<Tkey, TValue>
+     * @return Collection<TKey, TValue>
      */
     public static function iterate($input, callable $function)
     {
@@ -58,7 +61,7 @@ class Collection implements IteratorAggregate, \Serializable
     /**
      * @param Tvalue $value
      * @param int $times
-     * @return Collection<Tkey, TValue>
+     * @return Collection<TKey, TValue>
      */
     public static function repeat($value, $times = -1)
     {
@@ -68,7 +71,7 @@ class Collection implements IteratorAggregate, \Serializable
      * @param int $start
      * @param int|null $end
      * @param int $step
-     * @return Collection<Tkey, int>
+     * @return Collection<TKey, int>
      */
     public static function range($start = 0, $end = null, $step = 1)
     {
