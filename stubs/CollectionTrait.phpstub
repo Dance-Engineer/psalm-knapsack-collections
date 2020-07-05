@@ -56,7 +56,8 @@ trait CollectionTrait
      * @param callable(T, TValue, TKey):T $function
      * @param T $starTValue
      * @param Ta $convertToCollection
-     * @return <Ta is true ? Collection : T>
+     * @return Collection|mixed
+     * @psalm-return <Ta is true ? Collection : T>
      */
     public function reduce(callable $function, $starTValue, $convertToCollection = false)
     {
@@ -123,7 +124,8 @@ trait CollectionTrait
      * @template T as true|false
      * @param TKey $key
      * @param T $convertToCollection
-     * @return <T is true ? Collection : TValue>
+     * @return Collection|mixed
+     * @psalm-return <T is true ? Collection : TValue>
      * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function get($key, $convertToCollection = false)
@@ -136,7 +138,8 @@ trait CollectionTrait
      * @param TKey $key
      * @param T $default
      * @param Ta $convertToCollection
-     * @return <Ta is true ? T|Collection : T|TValue>
+     * @return Collection|mixed
+     * @psalm-return <Ta is true ? T|Collection : T|TValue>
      * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function getOrDefault($key, $default = null, $convertToCollection = false)
@@ -149,7 +152,8 @@ trait CollectionTrait
      * @param callable(TValue, TKey=):bool $function
      * @param T|null $default
      * @param Ta $convertToCollection
-     * @return <Ta is true ? T|null|Collection : T|null|TValue>
+     * @return Collection|mixed
+     * @psalm-return <Ta is true ? T|null|Collection : T|null|TValue>
      * @return mixed|Collection<array-key, mixed>
      */
     public function find(callable $function, $default = null, $convertToCollection = false)
@@ -214,7 +218,8 @@ trait CollectionTrait
      * @param callable(T, TValue):T $function
      * @param T $starTValue
      * @param Ta $convertToCollection
-     * @return <Ta is true ? Collection<array-key, mixed> : T>
+     * @return Collection|mixed
+     * @psalm-return <Ta is true ? Collection<array-key, mixed> : T>
      */
     public function reduceRight(callable $function, $starTValue, $convertToCollection = false)
     {
@@ -431,7 +436,8 @@ trait CollectionTrait
     /**
      * @template Ta as true|false
      * @param Ta $convertToCollection
-     * @return <Ta is true ? Collection : TValue>
+     * @return Collection|mixed
+     * @psalm-return <Ta is true ? Collection : TValue>
      * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function first($convertToCollection = false)
@@ -441,7 +447,8 @@ trait CollectionTrait
     /**
      * @template Ta as true|false
      * @param Ta $convertToCollection
-     * @return <Ta is true ? Collection : TValue>
+     * @return Collection|mixed
+     * @psalm-return <Ta is true ? Collection : TValue>
      * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function last($convertToCollection = false)
@@ -458,7 +465,8 @@ trait CollectionTrait
     /**
      * @template Ta as true|false
      * @param Ta $convertToCollection
-     * @return <Ta is true ? Collection : TValue>
+     * @return Collection|mixed
+     * @psalm-return <Ta is true ? Collection : TValue>
      * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function second($convertToCollection = false)
