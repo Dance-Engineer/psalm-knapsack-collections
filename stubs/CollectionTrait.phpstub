@@ -5,6 +5,7 @@ namespace DusanKasan\Knapsack;
 /**
  * @template-covariant TKey as array-key
  * @template-covariant TValue
+ * @psalm-immutable
  */
 trait CollectionTrait
 {

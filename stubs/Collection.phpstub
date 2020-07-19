@@ -12,6 +12,7 @@ use Traversable;
  * @template-covariant TKey as array-key
  * @template-covariant TValue
  * @template-extends IteratorAggregate<TKey,TValue>
+ * @psalm-immutable
  */
 class Collection implements IteratorAggregate, \Serializable
 {
