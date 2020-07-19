@@ -2,31 +2,29 @@
 
 namespace DusanKasan\Knapsack;
 
-use DusanKasan\Knapsack\Exceptions\InvalidReturnValue;
-
 /**
- * @template TKey as array-key
- * @template TValue
+ * @template-covariant TKey as array-key
+ * @template-covariant TValue
  */
 trait CollectionTrait
 {
     /**
-     * @return array<TKey, TValue>
+     * @psalm-return array<TKey, TValue>
      */
     public function toArray()
     {
     }
 
     /**
-     * @param callable(TValue, TKey=):bool|null $function
-     * @return Collection<TKey, TValue>
+     * @psalm-param callable(TValue, TKey=):bool|null $function
+     * @psalm-return Collection<TKey, TValue>
      */
     public function filter(callable $function = null)
     {
     }
 
     /**
-     * @return Collection<TKey, TValue>
+     * @psalm-return Collection<TKey, TValue>
      */
     public function distinct()
     {
@@ -34,8 +32,8 @@ trait CollectionTrait
 
     /**
      * @template T
-     * @param iterable<T> ...$collections
-     * @return Collection<TKey|int, T|TValue>
+     * @psalm-param iterable<T> ...$collections
+     * @psalm-return Collection<TKey|int, T|TValue>
      */
     public function concat(...$collections)
     {
@@ -43,8 +41,8 @@ trait CollectionTrait
 
     /**
      * @template T
-     * @param callable(TValue, TKey=):T $function
-     * @return Collection<TKey, T>
+     * @psalm-param callable(TValue, TKey=):T $function
+     * @psalm-return Collection<TKey, T>
      */
     public function map(callable $function)
     {
@@ -53,10 +51,9 @@ trait CollectionTrait
     /**
      * @template T
      * @template Ta as true|false
-     * @param callable(T, TValue, TKey):T $function
-     * @param T $starTValue
-     * @param Ta $convertToCollection
-     * @return Collection|mixed
+     * @psalm-param callable(T, TValue, TKey):T $function
+     * @psalm-param T $starTValue
+     * @psalm-param Ta $convertToCollection
      * @psalm-return <Ta is true ? Collection : T>
      */
     public function reduce(callable $function, $starTValue, $convertToCollection = false)
@@ -64,25 +61,22 @@ trait CollectionTrait
     }
 
     /**
-     * @param int $depth
-     * @return Collection<mixed, mixed>
+     * @psalm-return Collection<mixed, mixed>
      */
     public function flatten($depth = -1)
     {
     }
 
     /**
-     * @param callable(TValue, TValue, TKey=, TKey=):int $function
-     * @return Collection<TKey, TValue>
+     * @psalm-param callable(TValue, TValue, TKey=, TKey=):int $function
+     * @psalm-return Collection<TKey, TValue>
      */
     public function sort(callable $function)
     {
     }
 
     /**
-     * @param int $from
-     * @param int $to If omitted, will slice until end
-     * @return Collection<TKey, TValue>
+     * @psalm-return Collection<TKey, TValue>
      */
     public function slice($from, $to = -1)
     {
@@ -90,43 +84,33 @@ trait CollectionTrait
 
     /**
      * @template T as array-key
-     * @param callable(TValue, TKey=):T $function ($value, $key)
-     * @return Collection<T, Collection<TKey, TValue>>
+     * @psalm-param callable(TValue, TKey=):T $function ($value, $key)
+     * @psalm-return Collection<T, Collection<TKey, TValue>>
      */
     public function groupBy(callable $function)
     {
     }
 
     /**
-     * @param mixed $key
-     * @return Collection<array-key, Collection<TKey, TValue>>
+     * @psalm-return Collection<array-key, Collection<TKey, TValue>>
      */
     public function groupByKey($key)
     {
     }
 
     /**
-     * @param callable(TValue, TKey=): void $function
-     * @return Collection<TKey, TValue>
+     * @psalm-param callable(TValue, TKey=): void $function
+     * @psalm-return Collection<TKey, TValue>
      */
     public function each(callable $function)
     {
     }
 
     /**
-     * @return int
-     */
-    public function size()
-    {
-    }
-
-    /**
      * @template T as true|false
-     * @param TKey $key
-     * @param T $convertToCollection
-     * @return Collection|mixed
+     * @psalm-param TKey $key
+     * @psalm-param T $convertToCollection
      * @psalm-return <T is true ? Collection : TValue>
-     * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function get($key, $convertToCollection = false)
     {
@@ -135,12 +119,10 @@ trait CollectionTrait
     /**
      * @template T
      * @template Ta as true|false
-     * @param TKey $key
-     * @param T $default
-     * @param Ta $convertToCollection
-     * @return Collection|mixed
+     * @psalm-param TKey $key
+     * @psalm-param T $default
+     * @psalm-param Ta $convertToCollection
      * @psalm-return <Ta is true ? T|Collection : T|TValue>
-     * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function getOrDefault($key, $default = null, $convertToCollection = false)
     {
@@ -149,24 +131,19 @@ trait CollectionTrait
     /**
      * @template T
      * @template Ta as true|false
-     * @param callable(TValue, TKey=):bool $function
-     * @param T|null $default
-     * @param Ta $convertToCollection
-     * @return Collection|mixed
+     * @psalm-param callable(TValue, TKey=):bool $function
+     * @psalm-param T|null $default
+     * @psalm-param Ta $convertToCollection
      * @psalm-return <Ta is true ? T|null|Collection : T|null|TValue>
-     * @return mixed|Collection<array-key, mixed>
      */
     public function find(callable $function, $default = null, $convertToCollection = false)
     {
     }
 
     /**
-     * Returns a non-lazy collection of items whose keys are the return values of $function and values are the number of
-     * items in this collection for which the $function returned this value.
-     *
      * @template T as array-key
-     * @param callable(TValue, TKey=):T $function
-     * @return Collection<T, int>
+     * @psalm-param callable(TValue, TKey=):T $function
+     * @psalm-return Collection<T, int>
      */
     public function countBy(callable $function)
     {
@@ -174,39 +151,29 @@ trait CollectionTrait
 
     /**
      * @template T as array-key
-     * @param callable(TValue, TKey=):T $function
-     * @return Collection<T, TValue>
+     * @psalm-param callable(TValue, TKey=):T $function
+     * @psalm-return Collection<T, TValue>
      */
     public function indexBy(callable $function)
     {
     }
 
     /**
-     * @param callable(TValue, TKey=):bool $function
-     * @return bool
+     * @psalm-param callable(TValue, TKey=):bool $function
      */
     public function every(callable $function)
     {
     }
 
     /**
-     * @param callable(TValue, TKey=):bool $function
-     * @return bool
+     * @psalm-param callable(TValue, TKey=):bool $function
      */
     public function some(callable $function)
     {
     }
 
     /**
-     * @param mixed $value
-     * @return bool
-     */
-    public function contains($value)
-    {
-    }
-
-    /**
-     * @return Collection<TKey, TValue>
+     * @psalm-return Collection<TKey, TValue>
      */
     public function reverse()
     {
@@ -215,10 +182,9 @@ trait CollectionTrait
     /**
      * @template T
      * @template Ta as true|false
-     * @param callable(T, TValue):T $function
-     * @param T $starTValue
-     * @param Ta $convertToCollection
-     * @return Collection|mixed
+     * @psalm-param callable(T, TValue):T $function
+     * @psalm-param T $starTValue
+     * @psalm-param Ta $convertToCollection
      * @psalm-return <Ta is true ? Collection<array-key, mixed> : T>
      */
     public function reduceRight(callable $function, $starTValue, $convertToCollection = false)
@@ -226,69 +192,65 @@ trait CollectionTrait
     }
 
     /**
-     * @param int $numberOfItems
-     * @return Collection<TKey, TValue>
+     * @psalm-return Collection<TKey, TValue>
      */
     public function take($numberOfItems)
     {
     }
 
     /**
-     * @param int $numberOfItems
-     * @return Collection<TKey, TValue>
+     * @psalm-return Collection<TKey, TValue>
      */
     public function drop($numberOfItems)
     {
     }
 
     /**
-     * @return Collection<int, TValue>
+     * @psalm-return Collection<int, TValue>
      */
     public function values()
     {
     }
 
     /**
-     * @param callable(TValue, TKey=):bool $function
-     * @return Collection<TKey, TValue>
+     * @psalm-param callable(TValue, TKey=):bool $function
+     * @psalm-return Collection<TKey, TValue>
      */
     public function reject(callable $function)
     {
     }
 
     /**
-     * @return Collection<int, TKey>
+     * @psalm-return Collection<int, TKey>
      */
     public function keys()
     {
     }
 
     /**
-     * @param mixed $separator
-     * @return Collection<array-key, mixed>
+     * @psalm-return Collection<array-key, mixed>
      */
     public function interpose($separator)
     {
     }
 
     /**
-     * @param int $numberOfItems
-     * @return Collection<TKey, TValue>
+     * @psalm-return Collection<TKey, TValue>
      */
     public function dropLast($numberOfItems = 1)
     {
     }
 
     /**
-     * @param iterable<mixed> ...$collections
-     * @return Collection<array-key, mixed>
+     * @psalm-param iterable<mixed> ...$collections
+     * @psalm-return Collection<array-key, mixed>
      */
     public function interleave(...$collections)
     {
     }
 
     /**
-     * @return Collection<TKey, TValue>
+     * @psalm-return Collection<TKey, TValue>
      */
     public function cycle()
     {
@@ -296,9 +258,8 @@ trait CollectionTrait
 
     /**
      * @template T as mixed|null
-     * @param mixed $value
-     * @param T $key
-     * @return Collection<array-key, T|TValue>
+     * @psalm-param T $key
+     * @psalm-return Collection<array-key, T|TValue>
      */
     public function prepend($value, $key = null)
     {
@@ -306,9 +267,8 @@ trait CollectionTrait
 
     /**
      * @template T as mixed|null
-     * @param mixed $value
-     * @param T $key
-     * @return Collection<array-key, T|TValue>
+     * @psalm-param T $key
+     * @psalm-return Collection<array-key, T|TValue>
      */
     public function append($value, $key = null)
     {
@@ -318,8 +278,8 @@ trait CollectionTrait
      * Returns a lazy collection by removing items from this collection until first item for which $function returns
      * false.
      *
-     * @param callable(TValue, TKey=): bool $function
-     * @return Collection<TKey, TValue>
+     * @psalm-param callable(TValue, TKey=): bool $function
+     * @psalm-return Collection<TKey, TValue>
      */
     public function dropWhile(callable $function)
     {
@@ -327,40 +287,39 @@ trait CollectionTrait
 
     /**
      * @template T
-     * @param callable(TValue, TKey=):T $function
-     * @return Collection<array-key, mixed>
+     * @psalm-param callable(TValue, TKey=):T $function
+     * @psalm-return Collection<array-key, mixed>
      */
     public function mapcat(callable $function)
     {
     }
 
     /**
-     * @param callable(TValue, TKey=):bool $function
-     * @return Collection<TKey, TValue>
+     * @psalm-param callable(TValue, TKey=):bool $function
+     * @psalm-return Collection<TKey, TValue>
      */
     public function takeWhile(callable $function)
     {
     }
 
     /**
-     * @param int $position
-     * @return Collection<int, Collection<TKey, TValue>>
+     * @psalm-return Collection<int, Collection<TKey, TValue>>
      */
     public function splitAt($position)
     {
     }
 
     /**
-     * @param callable(TValue, TKey=):bool $function
-     * @return Collection<int, Collection<TKey, TValue>>
+     * @psalm-param callable(TValue, TKey=):bool $function
+     * @psalm-return Collection<int, Collection<TKey, TValue>>
      */
     public function splitWith(callable $function)
     {
     }
 
     /**
-     * @param iterable<TValue, mixed> $replacementMap
-     * @return Collection<TKey, mixed>
+     * @psalm-param iterable<TValue, mixed> $replacementMap
+     * @psalm-return Collection<TKey, mixed>
      */
     public function replace($replacementMap)
     {
@@ -368,26 +327,23 @@ trait CollectionTrait
 
     /**
      * @template T
-     * @param callable(T, TValue):T $function
-     * @param T $starTValue
-     * @param callable $function
-     * @param mixed $starTValue
-     * @return Collection<int, T>
+     * @psalm-param callable(T, TValue):T $function
+     * @psalm-param T $starTValue
+     * @psalm-return Collection<int, T>
      */
     public function reductions(callable $function, $starTValue)
     {
     }
 
     /**
-     * @param int $step
-     * @return Collection<TKey, TValue>
+     * @psalm-return Collection<TKey, TValue>
      */
     public function takeNth($step)
     {
     }
 
     /**
-     * @return Collection<TKey, TValue>
+     * @psalm-return Collection<TKey, TValue>
      */
     public function shuffle()
     {
@@ -395,39 +351,23 @@ trait CollectionTrait
 
     /**
      * @template T
-     * @param int $numberOfItems
-     * @param int $step
-     * @param iterable<T> $padding
-     * @return Collection<int, Collection<Tkey, TValue|T>>
+     * @psalm-param iterable<T> $padding
+     * @psalm-return Collection<int, Collection<Tkey, TValue|T>>
      */
     public function partition($numberOfItems, $step = 0, $padding = [])
     {
     }
 
     /**
-     * @param callable(TKey=,TValue=):bool $function
-     * @return Collection{0:Collection<TKey,TValue>,1:Collection<TKey,TValue>}
+     * @psalm-param callable(TKey=,TValue=):bool $function
+     * @psalm-return Collection{0:Collection<TKey,TValue>,1:Collection<TKey,TValue>}
      */
     public function partitionBy(callable $function)
     {
     }
 
     /**
-     * @return bool
-     */
-    public function isEmpty()
-    {
-    }
-
-    /**
-     * @return bool
-     */
-    public function isNotEmpty()
-    {
-    }
-
-    /**
-     * @return Collection<TValue, int>
+     * @psalm-return Collection<TValue, int>
      */
     public function frequencies()
     {
@@ -435,10 +375,8 @@ trait CollectionTrait
 
     /**
      * @template Ta as true|false
-     * @param Ta $convertToCollection
-     * @return Collection|mixed
+     * @psalm-param Ta $convertToCollection
      * @psalm-return <Ta is true ? Collection : TValue>
-     * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function first($convertToCollection = false)
     {
@@ -446,17 +384,15 @@ trait CollectionTrait
 
     /**
      * @template Ta as true|false
-     * @param Ta $convertToCollection
-     * @return Collection|mixed
+     * @psalm-param Ta $convertToCollection
      * @psalm-return <Ta is true ? Collection : TValue>
-     * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function last($convertToCollection = false)
     {
     }
 
     /**
-     * @return Collection<TKey, TValue>
+     * @psalm-return Collection<TKey, TValue>
      */
     public function realize()
     {
@@ -464,10 +400,8 @@ trait CollectionTrait
 
     /**
      * @template Ta as true|false
-     * @param Ta $convertToCollection
-     * @return Collection|mixed
+     * @psalm-param Ta $convertToCollection
      * @psalm-return <Ta is true ? Collection : TValue>
-     * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
      */
     public function second($convertToCollection = false)
     {
@@ -475,56 +409,54 @@ trait CollectionTrait
 
     /**
      * @template T as array-key
-     * @param iterable<T> $collection
-     * @return Collection<T, TValue>
-     * @throws \DusanKasan\Knapsack\Exceptions\ItemNotFound
+     * @psalm-param iterable<T> $collection
+     * @psalm-return Collection<T, TValue>
      */
     public function combine($collection)
     {
     }
 
     /**
-     * @param iterable<TKey> $keys
-     * @return Collection<TKey, TValue>
+     * @psalm-param iterable<TKey> $keys
+     * @psalm-return Collection<TKey, TValue>
      */
     public function except($keys)
     {
     }
 
     /**
-     * @param iterable<TKey> $keys
-     * @return Collection<TKey, TValue>
+     * @psalm-param iterable<TKey> $keys
+     * @psalm-return Collection<TKey, TValue>
      */
     public function only($keys)
     {
     }
 
     /**
-     * @param iterable<TValue> ...$collections
-     * @return Collection<TKey, TValue>
+     * @psalm-param iterable<TValue> ...$collections
+     * @psalm-return Collection<TKey, TValue>
      */
     public function diff(...$collections)
     {
     }
 
     /**
-     * @return Collection<TValue, TKey>
+     * @psalm-return Collection<TValue, TKey>
      */
     public function flip()
     {
     }
 
     /**
-     * @param TKey $key
-     * @return bool
+     * @psalm-param TKey $key
      */
     public function has($key)
     {
     }
 
     /**
-     * @param iterable<mixed> ...$collections
-     * @return Collection<int, mixed>
+     * @psalm-param iterable<mixed> ...$collections
+     * @psalm-return Collection<int, mixed>
      */
     public function zip(...$collections)
     {
@@ -533,126 +465,68 @@ trait CollectionTrait
     /**
      * @template Ta as array-key
      * @template Tb
-     * @param callable(Collection<TKey, TValue>):Collection<Ta, Tb> $transformer
-     * @return Collection<Ta, Tb>
-     * @throws InvalidReturnValue
+     * @psalm-param callable(Collection<TKey, TValue>):Collection<Ta, Tb> $transformer
+     * @psalm-return Collection<Ta, Tb>
      */
     public function transform(callable $transformer)
     {
     }
 
     /**
-     * @return Collection<array-key, Collection<TKey, mixed>>
+     * @psalm-return Collection<array-key, Collection<TKey, mixed>>
      */
     public function transpose()
     {
     }
 
     /**
-     * @param mixed $keyPath
-     * @return Collection<array-key, mixed>
+     * @psalm-return Collection<array-key, mixed>
      */
     public function extract($keyPath)
     {
     }
 
     /**
-     * @param iterable<TValue> ...$collections
-     * @return Collection<TKey, TValue>
+     * @psalm-param iterable<TValue> ...$collections
+     * @psalm-return Collection<TKey, TValue>
      */
     public function intersect(...$collections)
     {
     }
 
-    /**
-     * @param int $size
-     * @return bool
-     */
-    public function sizeIs($size)
-    {
-    }
 
     /**
-     * @param int $size
-     * @return bool
-     */
-    public function sizeIsLessThan($size)
-    {
-    }
-
-    /**
-     * @param int $size
-     * @return bool
-     */
-    public function sizeIsGreaterThan($size)
-    {
-    }
-
-    /**
-     * @param int $fromSize
-     * @param int $toSize
-     * @return bool
-     */
-    public function sizeIsBetween($fromSize, $toSize)
-    {
-    }
-
-    /**
-     * @return int|float
-     */
-    public function sum()
-    {
-    }
-
-    /**
-     * @return int|float
-     */
-    public function average()
-    {
-    }
-
-    /**
-     * @return TValue
+     * @psalm-return TValue
      */
     public function max()
     {
     }
 
     /**
-     * @return TValue
+     * @psalm-return TValue
      */
     public function min()
     {
     }
 
-    /**
-     * @return string
-     */
-    public function toString()
-    {
-    }
 
     /**
-     * @param iterable<TKey, mixed> $replacementMap
-     * @return Collection<TKey, mixed>
+     * @psalm-param iterable<TKey, mixed> $replacementMap
+     * @psalm-return Collection<TKey, mixed>
      */
     public function replaceByKeys($replacementMap)
     {
     }
 
     /**
-     * @param int|null $maxItemsPerCollection
-     * @param int|null $maxDepth
-     * @return array<TKey, mixed>
+     * @psalm-return array<TKey, mixed>
      */
     public function dump($maxItemsPerCollection = null, $maxDepth = null)
     {
     }
 
     /**
-     * @param int|null $maxItemsPerCollection
-     * @param int|null $maxDepth
-     * @return Collection<TKey, TValue>
+     * @psalm-return Collection<TKey, TValue>
      */
     public function printDump($maxItemsPerCollection = null, $maxDepth = null)
     {
