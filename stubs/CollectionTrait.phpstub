@@ -62,7 +62,7 @@ trait CollectionTrait
     }
 
     /**
-     * @psalm-return Collection<mixed, mixed>
+     * @psalm-return Collection<array-key, mixed>
      */
     public function flatten($depth = -1)
     {
