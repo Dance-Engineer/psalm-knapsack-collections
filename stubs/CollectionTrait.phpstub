@@ -267,9 +267,10 @@ trait CollectionTrait
     }
 
     /**
-     * @template T as mixed|null
-     * @psalm-param T $key
-     * @psalm-return Collection<array-key, T|TValue>
+     * @template K as array-key|null
+     * @template T as mixed
+     * @psalm-param T $value
+     * @psalm-return (K is null ? Collection<TKey, T|TValue> : Collection<TKey|K, T|TValue>)
      */
     public function append($value, $key = null)
     {
